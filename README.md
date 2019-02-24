@@ -1,5 +1,8 @@
 # tic-tac-toe-react
 
+[Prewiev](https://valeriy-sorochynskyi.github.io/tic-tac-toe-react/)
+[PR](https://github.com/Valeriy-Sorochynskyi/tic-tac-toe-react/pull/1/files)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
