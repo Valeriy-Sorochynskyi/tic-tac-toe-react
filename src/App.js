@@ -15,8 +15,7 @@ class App extends Component {
   }
 
   checkDraw() {
-    if (!this.state.winner && this.state.stepsAmount === 8) {
-      alert("it's draw");
+    if (!this.state.winner && this.state.stepsAmount === 9) {
       this.setState({
         isDraw: true
       });
@@ -24,7 +23,7 @@ class App extends Component {
     return;
   }
 
-  checkWinner() {
+  checkWinner(newBoard) {
     let winComb = [
       [0, 1, 2],
       [3, 4, 5],
@@ -39,32 +38,34 @@ class App extends Component {
     for (let index = 0; index < winComb.length; index++) {
       const [a, b, c] = winComb[index];
       if (
-        this.state.board[a] &&
-        this.state.board[a] === this.state.board[b] &&
-        this.state.board[a] === this.state.board[c]
+        newBoard[a] &&
+        newBoard[a] === newBoard[b] &&
+        newBoard[a] === newBoard[c]
       ) {
-        this.setState({
-          winner: this.state.player
-        });
+        return this.state.player;
       }
     }
   }
 
   handleClick(index) {
     if (this.state.player && !this.state.winner) {
-      const newBoard = this.state.board;
+      const newBoard = this.state.board.slice();
+     
       let newstepsAmount = this.state.stepsAmount;
       if (this.state.board[index] === null) {
         newBoard[index] = this.state.player;
-
-        this.setState({
-          board: newBoard,
-          player: this.state.player === "X" ? "O" : "X",
-          stepsAmount: newstepsAmount + 1
-        });
-
-        this.checkWinner();
-        this.checkDraw();
+         const winner = this.checkWinner(newBoard);
+        this.setState(
+          {
+            board: newBoard,
+            player: this.state.player === "X" ? "O" : "X",
+            stepsAmount: newstepsAmount + 1,
+            winner: winner,
+          },
+          () => {
+            this.checkDraw();
+          }
+        );
       }
     }
   }
